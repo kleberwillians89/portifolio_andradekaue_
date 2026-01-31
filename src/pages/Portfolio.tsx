@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, useCallback } from "react";
+/*import { useEffect, useMemo, useState, useCallback } from "react";*/
 import "./Portfolio.css";
 
 // IMPORTS DOS ÍCONES (Certifique-se que os arquivos existem nestas pastas)
