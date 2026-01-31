@@ -79,7 +79,7 @@ export default function Portfolio() {
     return () => { alive = false; };
   }, []);
 
-  const visible = useMemo(() => items.slice(0, 80), [items]);
+  const visible = useMemo(() => items, [items]);
   const active = openIndex === null ? null : visible[openIndex] ?? null;
 
   const closeModal = useCallback(() => setOpenIndex(null), []);
