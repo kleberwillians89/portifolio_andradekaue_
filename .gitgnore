@@ -1,0 +1,19 @@
+# deps
+node_modules
+.pnpm-store
+.vite
+dist
+
+# env
+.env
+.env.*
+
+# portfolio media (pesado)
+public/portfolio/_full
+public/portfolio/_thumbs
+public/portfolio/*.mp4
+public/portfolio/*.mov
+public/portfolio/*.webm
+
+# opcional: se você sempre gera
+public/portfolio/list.json

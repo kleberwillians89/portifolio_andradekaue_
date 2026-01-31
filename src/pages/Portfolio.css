@@ -1,0 +1,184 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
+
+:root {
+  --bg: #000000;
+  --text: #ffffff;
+  --muted: #b0b0b0;
+  --gap: 20px; /* Gap preto visível entre as fotos */
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%; margin: 0;
+  background: var(--bg); color: var(--text);
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+.page { min-height: 100vh; display: flex; flex-direction: column; }
+
+/* --- HEADER --- */
+.header {
+  /* Fixo no topo ou estático? Na imagem parece parte do fluxo, mas sticky é melhor pra usabilidade */
+  position: sticky; top: 0; z-index: 50;
+  background: var(--bg); /* Fundo preto sólido para cobrir o grid ao rolar */
+  padding: 30px 40px;
+  
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between; /* Espalha Esquerda e Direita */
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Grupo Esquerdo: Nome e Cargo */
+.headerLeft {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.name {
+  margin: 0;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.role {
+  font-size: 18px;
+  font-weight: 300; /* Mais fino conforme a imagem */
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+/* Grupo Direito: Email e Ícones */
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.email {
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  color: #fff;
+  opacity: 0.9;
+}
+.email:hover { text-decoration: underline; }
+
+.social { display: flex; gap: 10px; }
+
+.socialBtn {
+  display: block;
+  width: 34px; height: 34px;
+  transition: opacity 0.2s;
+}
+.socialBtn:hover { opacity: 0.7; }
+
+.socialIcon {
+  width: 100%; height: 100%;
+  display: block;
+  /* Filtro para garantir que ícones pretos fiquem brancos */
+  filter: brightness(0) invert(1); 
+}
+
+/* --- CONTENT --- */
+.content {
+  flex: 1;
+  padding: 0 40px 60px; /* Mesma margem lateral do header */
+}
+
+.errorBox { color: #f55; text-align: center; margin-top: 50px; }
+
+/* GRID COM 4 COLUNAS (Ritmo da imagem) */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 Colunas iguais */
+  gap: var(--gap);
+  grid-auto-flow: dense; /* Preenche buracos se possível */
+}
+
+.card {
+  grid-column: span 1; /* Padrão: 1 coluna de largura */
+  grid-row: span var(--r); /* Altura variável definida no TSX */
+  
+  background: #1a1a1a; /* Cor de fundo enquanto carrega (cinza escuro) */
+  border: none; padding: 0; margin: 0; cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.card img, .card video {
+  width: 100%; height: 100%;
+  object-fit: cover; /* Enquadramento perfeito (corta excessos) */
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.2, 1, 0.2, 1);
+}
+
+.card:hover img, .card:hover video {
+  transform: scale(1.05);
+}
+
+/* Responsivo */
+@media (max-width: 1024px) {
+  .header { padding: 20px; flex-direction: column; align-items: flex-start; }
+  .headerLeft { flex-direction: column; gap: 4px; }
+  .headerRight { width: 100%; justify-content: space-between; margin-top: 10px; }
+  .content { padding: 0 20px 40px; }
+  
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .grid { grid-template-columns: 1fr; }
+  .card { grid-row: span 8 !important; /* Altura fixa no mobile */ }
+}
+
+/* --- MODAL (Full View) --- */
+.modalOverlay {
+  position: fixed; inset: 0; z-index: 100;
+  background: rgba(0, 0, 0, 0.95); /* Quase preto total */
+  display: grid; place-items: center;
+  animation: fade 0.25s ease-out;
+}
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+.modal {
+  width: 100%; height: 100%;
+  display: grid; place-items: center;
+  position: relative;
+}
+
+.modalMedia {
+  width: 90vw; height: 90vh;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* IMAGEM COMPLETA (Sem cortes) */
+.modalImg, .modalVid {
+  max-width: 100%; max-height: 100%;
+  width: auto; height: auto;
+  object-fit: contain; 
+  box-shadow: 0 0 30px rgba(0,0,0,0.5);
+}
+
+/* Botões do Modal */
+.modalClose {
+  position: absolute; top: 20px; right: 30px;
+  background: none; border: none; color: #fff;
+  font-size: 40px; cursor: pointer; opacity: 0.8;
+}
+.modalNav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background: none; border: none; color: #fff;
+  font-size: 60px; cursor: pointer; opacity: 0.5; padding: 20px;
+}
+.modalNav:hover, .modalClose:hover { opacity: 1; }
+.modalPrev { left: 10px; }
+.modalNext { right: 10px; }
