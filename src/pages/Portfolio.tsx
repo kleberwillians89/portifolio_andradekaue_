@@ -1,5 +1,5 @@
-/*import { useEffect, useMemo, useState, useCallback } from "react";*/
-/*import "./Portfolio.css";*/
+import { useEffect, useMemo, useState, useCallback } from "react";
+import "./Portfolio.css";
 
 // IMPORTS DOS ÍCONES (Certifique-se que os arquivos existem nestas pastas)
 import iconInsta from "../assets/icons/instagram.png";
